@@ -6,7 +6,16 @@ import random
 class tipo_superheroe(Enum):
     humano=1
     no_humano=0
-class superheroes(ser_vivo):
+    def de_nombre(a):
+        a=a.lower()
+        e=None
+        for tp in tipo_superheroe:
+            if tp.name==a:
+                e=tp
+        if type(e)!=tipo_superheroe:
+            raise Exception("tipo incorrecto")
+        return e
+class superheroe(ser_vivo):
     def __init__(self,alias,identidad,tipo,esc):
         self.alias=alias
         self.identidad=identidad
@@ -24,7 +33,7 @@ class superheroes(ser_vivo):
             self.parrilla_poderes=[random.randint(4,7),random.randint(1,8),random.randint(1,8),random.randint(3,8),random.randint(1,8),random.randint(3,7)]
         self.movimientos=[]
         self.coste=(esc.get_monedas()/esc.get_num_superheroes())*(sum(self.parrilla_poderes)/30)
-        self.energia=esc.get_enegia_vital()*self.parrilla_poderes[3]
+        self.energia=esc.get_energia_vital()*self.parrilla_poderes[3]
 
     def get_alias(self):
         return self.alias
@@ -49,4 +58,4 @@ class superheroes(ser_vivo):
     def atacar(self,obj,mov):
         obj.energia=obj.energia-self.movimientos[mov].get_daño()
     def __str__(self):
-        return f'{self.alias}, {self.tipo.name}, cuesta {self.coste} monedas, tiene {self.energia} ptos de energía y los siguientes monimientos:\n {self.get_movimientos()}'
+        return f'{self.alias}, {self.tipo.name}, cuesta {self.coste} monedas, tiene {self.energia} ptos de energía y los siguientes movimientos:\n {self.get_movimientos()}'

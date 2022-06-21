@@ -22,7 +22,7 @@ class Escenario:
     def __str__(self):
         return f'monedas : {self.monedas}\nnum_superheroes : {self.num_superheroes}\nmovimientos : {self.movimientos}\nenergia_vital : {self.energia_vital}'
 
-    def denombre(nom):
+    def de_nombre(nom):
         x=nom.lower()
         esc=None
         for tp in tipo_escenario:
