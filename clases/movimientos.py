@@ -6,17 +6,26 @@ class tipo_movimiento(Enum):
 
 class movimiento_general:
     def __init__(self,nombre,tipo,daño):
-        self.nombre=nombre
-        self.tipo=tipo
-        self.daño=daño
+        if type(nombre)!=str:
+            raise Exception("nombre debe ser str")
+        else:
+            self.nombre=nombre
+        if type(tipo)!=tipo_movimiento:
+            raise Exception("eso no es un tipo de movimiento")
+        else:
+            self.tipo=tipo
+        if type(daño)!=int:
+            raise Exception("daño debe ser un int")
+        else:
+            self.daño=daño
     def get_nombre(self):
         return self.nombre
     def get_tipo(self):
-        return self.tipo.name #hallar clave del enum(.value seria para sacar el valor)
+        return self.tipo
     def get_daño(self):
         return self.daño
     def __str__(self):
-        return f'el movimiento {self.nombre}'
+        return f'{self.nombre}:\n {self.daño} ptos de {self.tipo.name} '
 class movimiento_especifico(movimiento_general):
     def __init__(self,nombre,tipo,daño,superheroe):
         super().__init__(nombre,tipo,daño)
