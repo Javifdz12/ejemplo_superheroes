@@ -11,8 +11,10 @@ class organizacion:
     def get_nombre(self):
         return self.nombre
     def get_superheroes(self):
+        describcion=""
         for i in range(len(self.superheroes)):
-            return f'{i} - {self.superheroes[i].__str__()}\n'
+            describcion+=f'{i} - {self.superheroes[i].__str__()}\n'
+        return describcion
     def set_superheroes(self,x):
         self.superheroes.append(x)
     def no_eliminado(self):
@@ -20,7 +22,7 @@ class organizacion:
     def surrender(self):
         self.superheroes=[]
     def __str__(self):
-        return f'La organizacion {self.nombre}, tiene los siguientes superheroes: {self.get_superheroes()}\n'
+        return f'La organizacion {self.nombre}, tiene los siguientes superheroes:\n{self.get_superheroes()}'
 
 
 

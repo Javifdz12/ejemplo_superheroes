@@ -13,6 +13,8 @@ class Escenario:
         self.energia_vital =energia_vital
     def get_monedas(self):
         return self.monedas
+    def set_monedas(self,x):
+        self.monedas=x
     def get_num_superheroes(self):
         return self.num_superheroes
     def get_movimientos(self):
