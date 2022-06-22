@@ -28,6 +28,7 @@ def main():
     tipos=["humano","no_humano"]
     list_sup=[]
 
+
     for i in range(len(nombres)):
         nombre=nombres[i]
         apellido=apellidos[i]
@@ -36,6 +37,10 @@ def main():
         tipo=tipo_superheroe.de_nombre(s)
         sup=superheroe(alias,alias,tipo,escenario)
         list_sup.append(sup)
+    list_costes=[]
+    for i in list_sup:
+
+
 
 
     #CREAR ORGANIZACIONES
@@ -59,8 +64,46 @@ def main():
         else:
             org_sup.append(org)
 
-    for i in org_sup:
-        print(i.__str__())
+
+    jugador1=[]
+    jugador2=[]
+    while escenario.get_monedas()>0 and len(jugador1)<escenario.num_superheroes:
+        for i in org_sup:
+            print(i.__str__())
+
+        for i in range(len(org_sup)):
+            print(f'{i}-{org_sup[i].nombre}\n')
+        org=int(input("Jugador1 elija una organización: "))
+
+        if type(org_sup[org])!=organizacion:
+            raise Exception("organizacion incorrecta")
+
+
+        for i in range(len(org_sup[org].superheroes)):
+            print(f'{i}- {org_sup[org].superheroes[i].__str__()}')
+        sup=int(input("Elija un superheroe"))
+
+
+        if type(org_sup[org].superheroes[sup])!=superheroe:
+            raise Exception("superheroe incorrecto")
+
+
+        jugador1.append(org_sup[org].superheroes[sup])
+        escenario.set_monedas(escenario.get_monedas()-org_sup[org].superheroes[sup].get_coste())
+        print(escenario.monedas)
+        org_sup[org].superheroes.remove(org_sup[org].superheroes[sup])
+    else:
+        print(jugador1)
+
+
+
+
+
+
+
+
+
+
 
 
 
