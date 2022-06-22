@@ -3,6 +3,7 @@ from clases.movimientos import movimiento_general,tipo_movimiento,movimiento_esp
 from clases.escenarios import Escenario
 from clases.superheroes import superheroe, tipo_superheroe
 from clases.organizaciones import organizacion
+
 def main():
 
     firstNames = {"A":"Captain", "B":"Turbo", "C":"Galactic", "D":"The", "E":"Aqua", "F":"Fire",
@@ -17,17 +18,19 @@ def main():
 
     organizaciones=["A - Force", "Avengers", "Mercs for Money", "League of Realms", "Strange Academy", "X-Men"]
 
+    print("!!!COMENZEMOS¡¡¡")
+    print()
+
     #ELEGIR ESCENARIO
     x=input("Elige un escenario: torre_stark, santo_santuario, colegio_xavier: ")
     x=x.lower()
     escenario=Escenario.de_nombre(x)
-
+    print()
     #CREAR LISTA SUPERHEROES
     nombres=list(firstNames.values())
     apellidos=list(lastNames.values())
     tipos=["humano","no_humano"]
     list_sup=[]
-
 
     for i in range(len(nombres)):
         nombre=nombres[i]
@@ -37,11 +40,10 @@ def main():
         tipo=tipo_superheroe.de_nombre(s)
         sup=superheroe(alias,alias,tipo,escenario)
         list_sup.append(sup)
+
     list_costes=[]
     for i in list_sup:
         list_costes.append(i.get_coste())
-
-
 
 
     #CREAR ORGANIZACIONES
@@ -50,8 +52,9 @@ def main():
     c=a/b
     #a=26, b=6, c=4.33 por tanto van a sobrar superheroes(en este caso habrá 3 superheroes por organizacion y sobraran 8)
     org_sup=[]
-
-
+    print()
+    print("<<< FORMACION DE LAS ORGANIZACIONES >>>")
+    print()
     for i in range(len(organizaciones)):
         nombre=organizaciones[i]
         org=organizacion(nombre,[])
@@ -69,16 +72,20 @@ def main():
     jugador1=[]
     jugador2=[]
     while escenario.get_monedas()>min(list_costes) and len(jugador1)<escenario.num_superheroes:
+        print()
+        print("<<< ESTAS SON LAS ORGANIZACIONES, SUS SUPERHEROES Y SUS CARACTERISTICAS >>>")
+        print()
         for i in org_sup:
             print(i.__str__())
-
+        print()
         for i in range(len(org_sup)):
-            print(f'{i}-{org_sup[i].nombre}\n')
+            if org_sup[i].superheroes!=[]:
+                print(f'{i}-{org_sup[i].nombre}\n')
         org=int(input("Jugador1 elija una organización: "))
-
+        print()
         for i in range(len(org_sup[org].superheroes)):
             print(f'{i}- {org_sup[org].superheroes[i].__str__()}')
-        sup=int(input("Elija un superheroe"))
+        sup=int(input("Elija un superheroe: "))
 
         jugador1.append(org_sup[org].superheroes[sup])
         escenario.set_monedas(escenario.get_monedas()-org_sup[org].superheroes[sup].get_coste())
