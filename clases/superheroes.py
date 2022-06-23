@@ -50,7 +50,7 @@ class superheroe(ser_vivo):
     def get_movimientos(self):
         movs=""
         for i in range(len(self.movimientos)):
-            movs+=(f'{i} - {self.movimientos[i].__str__()}')
+            movs+=(f'{i} - {self.movimientos[i].__str__()}\n')
         return movs
     def get_coste(self):
         return self.coste
@@ -68,11 +68,16 @@ class superheroe(ser_vivo):
         if self.is_muerto:
             self.energia=0
 
-    def fight_atacar(self,obj,mov):
+    def fight_ataque(self,obj,mov):
+        print(f'{self.alias} va a atacar a {obj.alias}')
         obj.fight_defensa(self.movimientos[mov].get_daño())
+        print(f'A {obj.alias} le queda {obj.get_energia()}ptos de energia')
+
     def elegir_mov(self):
+        print(f'{self.alias} tiene la opcion de usar:\n')
         print(self.get_movimientos())
         x=int(input())
         return x
+
     def __str__(self):
         return f'{self.alias},con id {self.id}, {self.tipo.name}, cuesta {self.coste} monedas, tiene {self.energia} ptos de energía y los siguientes movimientos:\n {self.get_movimientos()}'

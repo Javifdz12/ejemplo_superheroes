@@ -3,7 +3,7 @@ from clases.movimientos import movimiento_general,tipo_movimiento,movimiento_esp
 from clases.escenarios import Escenario
 from clases.superheroes import superheroe, tipo_superheroe
 from clases.organizaciones import organizacion
-from clases.jugadores import jugador
+from clases.jugadores import jugador,combate_superheroes
 
 
 def main():
@@ -135,11 +135,27 @@ def main():
     print("\n<<< AHORA SI... !!!EMPIEZA LO BUENO¡¡¡ >>>\n")
 
     nombre_jug1=input(f'Jugador1 elija un nombre para su equipo: ')
-    nombre_jug2=input(f'Jugador2 elija un nombre para su equipo: ')
+    nombre_jug2=input(f'\nJugador2 elija un nombre para su equipo: ')
     jugador1=jugador(nombre_jug1,jugadores[0])
     jugador2=jugador(nombre_jug2,jugadores[1])
-    while jugador1.equipo!=[] and jugador1.equipo!=[]:
-        pass
+    combate=combate_superheroes(jugador1,jugador2)
+
+
+    print("\n<<< EMPIEZA EL COMBATE >>>\n")
+
+    while jugador1.equipo!=[] and jugador2.equipo!=[]:
+        a=jugador1.elegir_sup()
+        b=jugador2.elegir_sup()
+        s=jugador1[a].elegir_mov()
+        combate.combate_individual(jugador1.equipo[a],jugador2.equipo[b],jugador1.equipo[a].movimientos[s])
+    else:
+        if jugador1.equipo==[]:
+            print(f"\n{jugador2.nombre} gano la guerra!!!!")
+            print("<<< !!!ENHORABUENA¡¡¡ >>>")
+        else:
+            print(f"\n{jugador1.nombre} gano la guerra!!!!")
+            print("<<< !!!ENHORABUENA¡¡¡ >>>")
+
 
 
 
