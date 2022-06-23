@@ -138,6 +138,8 @@ def main():
     nombre_jug2=input(f'Jugador2 elija un nombre para su equipo: ')
     jugador1=jugador(nombre_jug1,jugadores[0])
     jugador2=jugador(nombre_jug2,jugadores[1])
+    while jugador1.equipo!=[] and jugador1.equipo!=[]:
+        pass
 
 
 
