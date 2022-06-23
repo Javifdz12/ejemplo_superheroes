@@ -3,6 +3,7 @@ from clases.movimientos import movimiento_general,tipo_movimiento,movimiento_esp
 from clases.escenarios import Escenario
 from clases.superheroes import superheroe, tipo_superheroe
 from clases.organizaciones import organizacion
+from clases.jugadores import jugador
 
 
 def main():
@@ -120,16 +121,25 @@ def main():
     movs.append(movimiento5)
 
     movs_sup=[]
-    for jugador in jugadores:
-        for sup in jugador:
-            print(f"Elige los movimientos de {sup.alias}\n")
-            while len(sup.movimientos)<escenario.get_movimientos():
-                for i in range(len(movs)):
-                    print(f'{i}- {movs[i].__str__()}')
+    for i in range(len(jugadores)):
+        for sup in jugadores[i]:
+            print(f"Jugador{i+1}elige los movimientos de {sup.alias}\n")
+            while len(movs_sup)<escenario.get_movimientos():
+                for j in range(len(movs)):
+                    print(f'{j}- {movs[j].__str__()}')
                 x=int(input())
                 movs_sup.append(movs[x])
             else:
                 sup.set_movimientos(movs_sup)
+
+    print("\n<<< AHORA SI... !!!EMPIEZA LO BUENO¡¡¡ >>>\n")
+
+    nombre_jug1=input(f'Jugador1 elija un nombre para su equipo: ')
+    nombre_jug2=input(f'Jugador2 elija un nombre para su equipo: ')
+    jugador1=jugador(nombre_jug1,jugadores[0])
+    jugador2=jugador(nombre_jug2,jugadores[1])
+
+
 
 
 
