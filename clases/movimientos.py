@@ -24,8 +24,10 @@ class movimiento_general:
         return self.tipo
     def get_daño(self):
         return self.daño
+    def set_daño(self,x):
+        self.daño=x
     def __str__(self):
-        return f'{self.nombre}:\n {self.daño} ptos de {self.tipo.name} '
+        return f'{self.nombre}:\n {self.daño} ptos ,tipo {self.tipo.name} '
 class movimiento_especifico(movimiento_general):
     def __init__(self,nombre,tipo,daño,superheroe):
         super().__init__(nombre,tipo,daño)

@@ -4,7 +4,7 @@ class ser_vivo:
     def is_vivo(self):
         return self.energia>0
     def is_muerto(self):
-        self.energia=0
+        self.energia<=0
     def get_energia(self):
         return self.energia
     def set_energia(self,x):

@@ -16,9 +16,15 @@ class tipo_superheroe(Enum):
             raise Exception("tipo incorrecto")
         return e
 class superheroe(ser_vivo):
-    def __init__(self,alias,identidad,tipo,esc):
+    def __init__(self,id,alias,identidad,tipo,esc):
+        self.ids=[]
+        if type(id)== int and id not in self.ids:
+            self.ids.append(id)
+            self.id=id
+        else:
+            raise TypeError("variable incorrecta o ya existente")
         self.alias=alias
-        self.identidad=identidad
+        self.__identidad=identidad
         if type(tipo)!=tipo_superheroe:
             raise Exception("tipo de superheroe invalido")
         else:
@@ -42,8 +48,10 @@ class superheroe(ser_vivo):
     def get_esc(self):
         return self.esc
     def get_movimientos(self):
+        movs=""
         for i in range(len(self.movimientos)):
-            print(f'{i} - {self.movimientos[i].__str__()}')
+            movs+=(f'{i} - {self.movimientos[i].__str__()}')
+        return movs
     def get_coste(self):
         return self.coste
     def get_energia(self):
@@ -55,7 +63,16 @@ class superheroe(ser_vivo):
             else:
                 mov.set_daño((mov.get_daño()/10)*(self.parrilla_poderes[0] + 0.75*self.parrilla_poderes[2] + 0.25*self.parrilla_poderes[5] + 0.2*self.parrilla_poderes[1]))
             self.movimientos.append(mov)
-    def atacar(self,obj,mov):
-        obj.energia=obj.energia-self.movimientos[mov].get_daño()
+    def fight_defensa(self,daño):
+        self.energia=self.energia-daño
+        if self.is_muerto:
+            self.energia=0
+
+    def fight_atacar(self,obj,mov):
+        obj.fight_defensa(self.movimientos[mov].get_daño())
+    def elegir_mov(self):
+        print(self.get_movimientos())
+        x=int(input())
+        return x
     def __str__(self):
-        return f'{self.alias}, {self.tipo.name}, cuesta {self.coste} monedas, tiene {self.energia} ptos de energía y los siguientes movimientos:\n {self.get_movimientos()}'
+        return f'{self.alias},con id {self.id}, {self.tipo.name}, cuesta {self.coste} monedas, tiene {self.energia} ptos de energía y los siguientes movimientos:\n {self.get_movimientos()}'

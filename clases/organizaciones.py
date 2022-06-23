@@ -20,9 +20,13 @@ class organizacion:
     def no_eliminado(self):
         return self.superheroes!=[]
     def surrender(self):
+        for i in self.superheroes:
+            i.is_muerto()
         self.superheroes=[]
     def __str__(self):
         return f'La organizacion {self.nombre}, tiene los siguientes superheroes:\n{self.get_superheroes()}'
+    def __repr__(self):
+        pass
 
 
 

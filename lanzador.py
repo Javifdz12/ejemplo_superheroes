@@ -4,6 +4,7 @@ from clases.escenarios import Escenario
 from clases.superheroes import superheroe, tipo_superheroe
 from clases.organizaciones import organizacion
 
+
 def main():
 
     firstNames = {"A":"Captain", "B":"Turbo", "C":"Galactic", "D":"The", "E":"Aqua", "F":"Fire",
@@ -18,6 +19,7 @@ def main():
 
     organizaciones=["A - Force", "Avengers", "Mercs for Money", "League of Realms", "Strange Academy", "X-Men"]
 
+    print()
     print("!!!COMENZEMOS¡¡¡")
     print()
 
@@ -38,7 +40,7 @@ def main():
         alias=nombre+""+apellido
         s=tipos[random.randint(0,1)]
         tipo=tipo_superheroe.de_nombre(s)
-        sup=superheroe(alias,alias,tipo,escenario)
+        sup=superheroe(i+1,alias,alias,tipo,escenario)
         list_sup.append(sup)
 
     list_costes=[]
@@ -59,6 +61,7 @@ def main():
         nombre=organizaciones[i]
         org=organizacion(nombre,[])
         print(f'Elige superheroes para la organizacion: {nombre}')
+        print()
         while len(org.superheroes)<3:
             for j in range(len(list_sup)):
                 print(f'{j} - {list_sup[j].__str__()}')
@@ -68,31 +71,67 @@ def main():
         else:
             org_sup.append(org)
 
-
+    sup_independientes=organizacion("Catalan_academy",list_sup)
+    org_sup.append(sup_independientes)
+    lista_monedas=[escenario.get_monedas(),escenario.get_monedas()]
     jugador1=[]
     jugador2=[]
-    while escenario.get_monedas()>min(list_costes) and len(jugador1)<escenario.num_superheroes:
-        print()
-        print("<<< ESTAS SON LAS ORGANIZACIONES, SUS SUPERHEROES Y SUS CARACTERISTICAS >>>")
-        print()
-        for i in org_sup:
-            print(i.__str__())
-        print()
-        for i in range(len(org_sup)):
-            if org_sup[i].superheroes!=[]:
-                print(f'{i}-{org_sup[i].nombre}\n')
-        org=int(input("Jugador1 elija una organización: "))
-        print()
-        for i in range(len(org_sup[org].superheroes)):
-            print(f'{i}- {org_sup[org].superheroes[i].__str__()}')
-        sup=int(input("Elija un superheroe: "))
+    jugadores=[jugador1,jugador2]
 
-        jugador1.append(org_sup[org].superheroes[sup])
-        escenario.set_monedas(escenario.get_monedas()-org_sup[org].superheroes[sup].get_coste())
-        print(escenario.monedas)
-        org_sup[org].superheroes.remove(org_sup[org].superheroes[sup])
-    else:
-        print(jugador1)
+    print()
+    print("<<< EMPIEZA LA ELECCION DE LOS SUPERHEROES >>>")
+    print()
+
+    for i in range(len(lista_monedas)):
+        while lista_monedas[i]>min(list_costes) and len(jugadores[i])<escenario.num_superheroes:
+            print()
+            print("<<< ESTAS SON LAS ORGANIZACIONES, SUS SUPERHEROES Y SUS CARACTERISTICAS >>>")
+            print()
+            for j in org_sup:
+                print(j.__str__())
+            print()
+            print(f'Todavia dispone de {lista_monedas[i]} monedas')
+            print()
+            for j in range(len(org_sup)):
+                if org_sup[j].superheroes!=[]:
+                    print(f'{j}-{org_sup[j].nombre}\n')
+            org=int(input(f"Jugador{i+1} elija una organización: "))
+            print()
+            for j in range(len(org_sup[org].superheroes)):
+                print(f'{j}- {org_sup[org].superheroes[j].__str__()}')
+            sup=int(input("Elija un superheroe: "))
+            jugadores[i].append(org_sup[org].superheroes[sup])
+            lista_monedas[i]=(lista_monedas[i]-org_sup[org].superheroes[sup].get_coste())
+            org_sup[org].superheroes.remove(org_sup[org].superheroes[sup])
+
+
+    print("\n<<< ELECCION DE MOVIMIENTOS POR PARTE DE CADA JUGADOR >>>\n")
+
+    movs=[]
+    movimiento1=movimiento_general("patada",tipo_movimiento.ataque,random.randint(1,15))
+    movimiento2=movimiento_general("puñetazo",tipo_movimiento.ataque,random.randint(1,10))
+    movimiento3=movimiento_general("escudo",tipo_movimiento.defensa,random.randint(1,12))
+    movimiento4=movimiento_general("escupitajo",tipo_movimiento.defensa,random.randint(1,5))
+    movimiento5=movimiento_general("espadazo",tipo_movimiento.ataque,random.randint(1,20))
+    movs.append(movimiento1)
+    movs.append(movimiento2)
+    movs.append(movimiento3)
+    movs.append(movimiento4)
+    movs.append(movimiento5)
+
+    movs_sup=[]
+    for jugador in jugadores:
+        for sup in jugador:
+            print(f"Elige los movimientos de {sup.alias}\n")
+            while len(sup.movimientos)<escenario.get_movimientos():
+                for i in range(len(movs)):
+                    print(f'{i}- {movs[i].__str__()}')
+                x=int(input())
+                movs_sup.append(movs[x])
+            else:
+                sup.set_movimientos(movs_sup)
+
+
 
 
 
