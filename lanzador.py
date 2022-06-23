@@ -105,7 +105,6 @@ def main():
             lista_monedas[i]=(lista_monedas[i]-org_sup[org].superheroes[sup].get_coste())
             org_sup[org].superheroes.remove(org_sup[org].superheroes[sup])
 
-
     print("\n<<< ELECCION DE MOVIMIENTOS POR PARTE DE CADA JUGADOR >>>\n")
 
     movs=[]
@@ -120,10 +119,10 @@ def main():
     movs.append(movimiento4)
     movs.append(movimiento5)
 
-    movs_sup=[]
     for i in range(len(jugadores)):
         for sup in jugadores[i]:
-            print(f"Jugador{i+1}elige los movimientos de {sup.alias}\n")
+            movs_sup=[]
+            print(f"Jugador{i+1} elige los movimientos de {sup.alias}\n")
             while len(movs_sup)<escenario.get_movimientos():
                 for j in range(len(movs)):
                     print(f'{j}- {movs[j].__str__()}')
@@ -146,7 +145,7 @@ def main():
     while jugador1.equipo!=[] and jugador2.equipo!=[]:
         a=jugador1.elegir_sup()
         b=jugador2.elegir_sup()
-        s=jugador1[a].elegir_mov()
+        s=jugador1.equipo[a].elegir_mov()
         combate.combate_individual(jugador1.equipo[a],jugador2.equipo[b],jugador1.equipo[a].movimientos[s])
     else:
         if jugador1.equipo==[]:
