@@ -155,18 +155,20 @@ def main():
             if jugador1.equipo[a].get_energia()!=0:
                 print(f"{jugador1.equipo[a].alias} gano la batalla\n")
                 jugador2.equipo.remove(jugador2.equipo[b])
-                b=jugador2.elegir_sup()
+                if jugador2.equipo!=[]:
+                    b=jugador2.elegir_sup()
             else:
                 print(f"{jugador2.equipo[b].alias} gano la batalla\n")
                 jugador1.equipo.remove(jugador1.equipo[a])
-                a=jugador1.elegir_sup()
+                if jugador1.equipo!=[]:
+                    a=jugador1.elegir_sup()
     else:
         if jugador1.equipo==[]:
             print(f"\n{jugador2.nombre} gano la guerra!!!!")
-            print("<<< !!!ENHORABUENA¡¡¡ >>>")
-        else:
-            print(f"\n{jugador1.nombre} gano la guerra!!!!")
-            print("<<< !!!ENHORABUENA¡¡¡ >>>")
+            print("\n<<< !!!ENHORABUENA¡¡¡ >>>\n")
+        elif jugador2.equipo==[]:
+            print(f"\n{jugador1.nombre.upper()} ganaron la guerra!!!!")
+            print("\n<<< !!!ENHORABUENA¡¡¡ >>>\n")
 
 
 

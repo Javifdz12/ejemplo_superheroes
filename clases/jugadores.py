@@ -9,7 +9,7 @@ class jugador:
             equip+=f'{i}- {self.equipo[i].__str__()}\n'
         return equip
     def elegir_sup(self):
-        print(f'{self.nombre} debe elegir un superheroe para luchar:\n')
+        print(f'{self.nombre} deben elegir un superheroe para luchar:\n')
         print(self.get_equipo())
         x=int(input())
         return x
