@@ -3,7 +3,7 @@ from clases.movimientos import movimiento_general,tipo_movimiento,movimiento_esp
 from clases.escenarios import Escenario
 from clases.superheroes import superheroe, tipo_superheroe
 from clases.organizaciones import organizacion
-from clases.jugadores import jugador,combate_superheroes
+from clases.jugadores import jugador
 
 
 def main():
@@ -50,9 +50,9 @@ def main():
 
 
     #CREAR ORGANIZACIONES
-    a=len(list_sup)
-    b=len(organizaciones)
-    c=a/b
+    r=len(list_sup)
+    l=len(organizaciones)
+    c=r/l
     #a=26, b=6, c=4.33 por tanto van a sobrar superheroes(en este caso habrá 3 superheroes por organizacion y sobraran 8)
     org_sup=[]
     print()
@@ -137,16 +137,29 @@ def main():
     nombre_jug2=input(f'\nJugador2 elija un nombre para su equipo: ')
     jugador1=jugador(nombre_jug1,jugadores[0])
     jugador2=jugador(nombre_jug2,jugadores[1])
-    combate=combate_superheroes(jugador1,jugador2)
-
 
     print("\n<<< EMPIEZA EL COMBATE >>>\n")
 
+    a=jugador1.elegir_sup()
+    b=jugador2.elegir_sup()
     while jugador1.equipo!=[] and jugador2.equipo!=[]:
-        a=jugador1.elegir_sup()
-        b=jugador2.elegir_sup()
         s=jugador1.equipo[a].elegir_mov()
-        combate.combate_individual(jugador1.equipo[a],jugador2.equipo[b],jugador1.equipo[a].movimientos[s])
+        jugador1.equipo[a].fight_ataque(jugador2.equipo[b],jugador1.equipo[a].movimientos[s])
+        while jugador1.equipo[a].get_energia()>0 and jugador2.equipo[b].get_energia()>0:
+            t=jugador2.equipo[b].elegir_mov()
+            jugador2.equipo[b].fight_ataque(jugador1.equipo[a],jugador2.equipo[b].movimientos[t])
+            if jugador1.equipo[a].get_energia() > 0:
+                s=jugador1.equipo[a].elegir_mov()
+                jugador1.equipo[a].fight_ataque(jugador2.equipo[b],jugador1.equipo[a].movimientos[s])
+        else:
+            if jugador1.equipo[a].get_energia()!=0:
+                print(f"{jugador1.equipo[a].alias} gano la batalla\n")
+                jugador2.equipo.remove(jugador2.equipo[b])
+                b=jugador2.elegir_sup()
+            else:
+                print(f"{jugador2.equipo[b].alias} gano la batalla\n")
+                jugador1.equipo.remove(jugador1.equipo[a])
+                a=jugador1.elegir_sup()
     else:
         if jugador1.equipo==[]:
             print(f"\n{jugador2.nombre} gano la guerra!!!!")

@@ -34,9 +34,9 @@ class superheroe(ser_vivo):
         else:
             self.esc=esc
         if tipo.name=="humano":
-            self.parrilla_poderes=[random.randint(3,8),random.randint(1,7),random.randint(2,6),random.randint(2,6),random.randint(1,7),random.randint(1,8)]
+            self.parrilla_poderes=[random.randint(3,7),random.randint(1,6),random.randint(2,5),random.randint(2,5),random.randint(1,6),random.randint(1,7)]
         else:
-            self.parrilla_poderes=[random.randint(4,7),random.randint(1,8),random.randint(1,8),random.randint(3,8),random.randint(1,8),random.randint(3,7)]
+            self.parrilla_poderes=[random.randint(4,6),random.randint(1,7),random.randint(1,7),random.randint(3,7),random.randint(1,7),random.randint(3,6)]
         self.movimientos=[]
         self.coste=(esc.get_monedas()/esc.get_num_superheroes())*(sum(self.parrilla_poderes)/30)
         self.energia=esc.get_energia_vital()*self.parrilla_poderes[3]
@@ -65,12 +65,12 @@ class superheroe(ser_vivo):
             self.movimientos.append(mov)
     def fight_defensa(self,daño):
         self.energia=self.energia-daño
-        if self.is_muerto:
+        if self.energia<=0:
             self.energia=0
 
     def fight_ataque(self,obj,mov):
         print(f'{self.alias} va a atacar a {obj.alias}')
-        obj.fight_defensa(self.movimientos[mov].get_daño())
+        obj.fight_defensa(mov.get_daño())
         print(f'A {obj.alias} le queda {obj.get_energia()}ptos de energia')
 
     def elegir_mov(self):

@@ -1,7 +1,7 @@
 from enum import Enum
 
 class tipo_escenario(Enum):
-    santo_santuario=[10000,10,10,100]
+    santo_santuario=[10000,5,2,100]
     torre_stark=[20000,20,25,200]
     colegio_xavier=[80000,30,40,300]
 
